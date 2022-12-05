@@ -1,13 +1,25 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://path_enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Level.gd" type="Script" id=3]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array(  )
+}
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array(  )
+}
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="Path2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 100, 50 )
+curve = SubResource( 1 )
 
 [node name="Path2D2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 500, 200 )
+curve = SubResource( 2 )
