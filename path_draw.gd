@@ -14,7 +14,7 @@ var unselected_color = Color.white
 var selected_color = Color.red
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Hit down arrow key to make paths selectable.")
+	print("Hit down arrow key to make paths selectable. Click first to select, click once more to select a start point, click again and so on to create curves.")
 	pathLength = self.curve.get_baked_length()
 	pass # Replace with function body.
 
@@ -27,6 +27,9 @@ func _process(_delta):
 		var p_s = PackedScene.new()
 		var name = "res://Paths/" + self.get_name() + ".tscn"
 		p_s.pack(get_tree().get_current_scene().get_node(self.get_path()))
+		var a = p_s.instance()
+		a.position = Vector2.ZERO
+		p_s.pack(a)
 		ResourceSaver.save(name, p_s)
 	if (activeTime >= traverseTime):
 		dir = -1
