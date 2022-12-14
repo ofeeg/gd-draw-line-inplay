@@ -24,15 +24,10 @@ func _process(_delta):
 	if changed:
 		changed = false
 		pathLength = self.curve.get_baked_length()
-		"""var p_s = PackedScene.new()
+		var p_s = PackedScene.new()
 		var name = "res://Paths/" + self.get_name() + ".tscn"
 		p_s.pack(get_tree().get_current_scene().get_node(self.get_path()))
-		ResourceSaver.save(name, p_s) 
-		p_s = load(name)
-		var new_child = p_s.instance()
-		add_child(new_child)
-		
-		new_child.set_owner(self)"""
+		ResourceSaver.save(name, p_s)
 	if (activeTime >= traverseTime):
 		dir = -1
 	if (activeTime <= 0):
