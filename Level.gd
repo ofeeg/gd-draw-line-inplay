@@ -13,12 +13,4 @@ func _process(_delta):
 		can_select = !can_select
 		enemy_path2.selectable = !enemy_path2.selectable
 		enemy_path.selectable = !enemy_path.selectable
-		#enemy_path.selected = !enemy_path.selected
-		#enemy_path2.selected = !enemy_path2.selected
-		#print("Select:", can_select)
-		#print(enemy_path.curve.get_point_count(), enemy_path.selected)
-		#print(enemy_path2.curve.get_point_count(), enemy_path2.selected)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
