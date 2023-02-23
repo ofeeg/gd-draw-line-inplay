@@ -4,18 +4,16 @@ export var traverseTime = 5
 export var activeTime = 0
 var pathLength = 0
 var dir = 1
-onready var change_count = 0
-#onready var path = self
 #DEBUG USE VARIABLES
+var change_count = 0
 var selectable = false
 var selected = false
 var changed = false
 var unselected_color = Color.white
 var selected_color = Color.red
-
+var dname = ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Hit down arrow key to make paths selectable. Click first to select, click once more to select a start point, click again and so on to create curves.")
 	pathLength = self.curve.get_baked_length()
 	pass # Replace with function body.
 
@@ -26,7 +24,11 @@ func _process(_delta):
 		changed = false
 		change_count += 1
 		pathLength = self.curve.get_baked_length()
-		path_draw_save(change_count-1)
+		if change_count > 0:
+			if dname == "":
+				path_draw_save(change_count, self.get_name())
+			else:
+				path_draw_save(change_count, dname)
 	if (activeTime >= traverseTime):
 		dir = -1
 	if (activeTime <= 0):
@@ -45,6 +47,21 @@ func _input(event):
 			if event.position.distance_to(self.position) < 50:
 				self.selected = true
 				update()
+		if self.selected:
+			if Input.is_action_just_pressed("ui_home"):
+				if self.selected:
+					if change_count > 1:
+						if dname  == "":
+							path_draw_undo(change_count, self.position, self.get_name(), self)
+						else:
+							path_draw_undo(change_count, self.position, dname, self)
+					else:
+						path_draw_undo(0, self.position,dname,self)
+					update()
+			#If the undo bugs out, press this first, and then undo again.
+			if Input.is_action_just_pressed("ui_end"):
+				self.curve.clear_points()
+
 	else:
 		if self.selected: 
 			self.selected = false
